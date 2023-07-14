@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     {
         path: "/discover",
         element: <DiscoverPage />,
-       // loader: discoverLoader
+        loader: discoverLoader
     }
 ]);
 

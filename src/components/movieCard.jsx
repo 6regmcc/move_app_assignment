@@ -9,13 +9,14 @@ import {IconButton} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import img from "/src/images/film-poster-placeholder.png"
 
+
 export default function MovieCard ({movie}) {
     return (
-        <Paper>
-            <Card sx={{ maxWidth: 345 }}>
-                <CardHeader
 
+            <Card sx={{ maxWidth: 345, height: '100%'}}>
+                <CardHeader
                     title={movie.title}
+                    sx={{height: 50}}
 
                 />
                 <CardMedia
@@ -41,6 +42,6 @@ export default function MovieCard ({movie}) {
                     </IconButton>
                 </CardActions>
             </Card>
-        </Paper>
+
     )
 }
