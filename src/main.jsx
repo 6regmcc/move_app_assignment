@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import DiscoverPage from "./routes/discover";
+import {loader as discoverLoader} from "./routes/discover.jsx"
 
 const router = createBrowserRouter([
     {
@@ -15,7 +16,8 @@ const router = createBrowserRouter([
     },
     {
         path: "/discover",
-        element: <DiscoverPage />
+        element: <DiscoverPage />,
+       // loader: discoverLoader
     }
 ]);
 

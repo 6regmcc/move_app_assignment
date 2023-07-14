@@ -15,18 +15,20 @@ export default function MovieCard ({movie}) {
             <Card sx={{ maxWidth: 345 }}>
                 <CardHeader
 
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016"
+                    title={movie.title}
+
                 />
                 <CardMedia
                     component="img"
-                    height="194"
+                    height="350"
                     image={
                         movie.poster_path
                             ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
                             : img
                     }
-                    alt="Paella dish"
+                    alt="Movie poster"
+                    sx={{ objectFit: "contain" }}
+
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
