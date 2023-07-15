@@ -25,6 +25,7 @@ export default function FilterDrawer(props) {
             <Drawer
                 anchor= "left"
                 open = {props.open}
+                onClose={props.handleDrawerClose}
 
             >
 

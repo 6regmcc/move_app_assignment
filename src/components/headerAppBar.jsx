@@ -19,8 +19,15 @@ function HeaderAppBar (props) {
     const handleClick = () => {
         console.log('click')
         setOpen(!open)
-
     }
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -41,7 +48,7 @@ function HeaderAppBar (props) {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <FilterDrawer open={open} />
+            <FilterDrawer open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
         </Box>
     );
 }
