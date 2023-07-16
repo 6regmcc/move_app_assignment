@@ -7,7 +7,6 @@ import FilterDrawer from "../components/filterDrawer.jsx";
 function Root () {
     return (
         <Box>
-
             <HeaderAppBar />
             <FilterDrawer />
             <Outlet />

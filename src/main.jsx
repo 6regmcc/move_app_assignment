@@ -5,10 +5,13 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import "./index.css";
+
 import DiscoverPage from "./routes/discover";
 import {loader as discoverLoader} from "./routes/discover.jsx"
 import TemporaryDrawer from "./routes/testpage.jsx";
+import {sampleMovie} from "./sampleData.js";
+import App from "./App.jsx"
+import DetailsPage from "./routes/detailsPage.jsx"
 
 const router = createBrowserRouter([
     {
@@ -25,6 +28,11 @@ const router = createBrowserRouter([
     {
         path: "/testpage",
         element: <TemporaryDrawer />
+    },
+    {
+        path: "detailspage",
+        element: <DetailsPage movie={sampleMovie}/>
+
     }
 
 ]);
