@@ -12,6 +12,7 @@ import TemporaryDrawer from "./routes/testpage.jsx";
 import {sampleMovie} from "./sampleData.js";
 import App from "./App.jsx"
 import DetailsPage from "./routes/detailsPage.jsx"
+import sampleDetails from "./sampleMovieDetails.js"
 
 const router = createBrowserRouter([
     {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     },
     {
         path: "detailspage",
-        element: <DetailsPage movie={sampleMovie}/>
+        element: <DetailsPage movie={sampleDetails}/>
 
     }
 

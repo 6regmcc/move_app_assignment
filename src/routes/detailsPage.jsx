@@ -5,31 +5,22 @@ import Box from "@mui/material/Box";
 import img from "../images/film-poster-placeholder.png";
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from "@mui/material/Paper";
-import {Rating} from "@mui/material";
+import {Autocomplete, Chip, Rating, TextField} from "@mui/material";
 import Divider from '@mui/material/Divider';
 
+import sampleMovieDetails from "../sampleMovieDetails.js";
+import MoviePoster from "../components/movieDetailsPoster.jsx";
+
+
+
 export default function DetailsPage (props) {
-    console.log(props.movie)
+    //console.log(props.movie)
     return (
         <Container sx={{width: "100%", mt:"10%",}} >
             <Paper sx={{pt:5}}>
                 <Grid container spacing={2}sx={{m:3}} >
                     <Grid xs={12} sm={6} >
-
-                        <Box
-                            component="img"
-                            sx={{
-
-                                maxHeight:"90%",
-                                maxWidth: "90%"
-                            }}
-                            alt="Movie Poster"
-                            src={
-                                props.movie.poster_path
-                                    ? `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`
-                                    : img
-                            }
-                        />
+                        <MoviePoster poster_path={props.movie.poster_path} />
                     </Grid>
                     <Grid xs={12} sm={6}>
                         <Typography variant="h4" sx={{pb:4}}>{props.movie.title}</Typography>
@@ -42,8 +33,12 @@ export default function DetailsPage (props) {
                         <Typography variant="body2" sx={{display:"inline",m:3}}>{props.movie.vote_count} votes</Typography>
                         <Divider sx={{py:2}} />
                         <Typography sx={{py:2}} variant="h6">Genres</Typography>
-
-
+                        {props.movie.genres.map(genre => {
+                            return(
+                                <Chip label={genre.name} variant="outlined" sx={{mx:0.5}}/>
+                            )
+                        })}
+                        <Divider sx={{py:2}} />
                     </Grid>
                 </Grid>
                 </Paper>
