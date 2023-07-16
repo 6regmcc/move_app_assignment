@@ -13,6 +13,7 @@ import {sampleMovie} from "./sampleData.js";
 import App from "./App.jsx"
 import DetailsPage from "./routes/detailsPage.jsx"
 import sampleDetails from "./sampleMovieDetails.js"
+import {loader as movieDetailsLoader} from "./routes/detailsPage.jsx"
 
 const router = createBrowserRouter([
     {
@@ -23,19 +24,14 @@ const router = createBrowserRouter([
                 path: "/discover",
                 element: <DiscoverPage />,
                 loader: discoverLoader
+            },
+            {
+                path: "/movie/:id",
+                element: <DetailsPage />,
+                loader: movieDetailsLoader
             }
         ]
     },
-    {
-        path: "/testpage",
-        element: <TemporaryDrawer />
-    },
-    {
-        path: "detailspage",
-        element: <DetailsPage movie={sampleDetails}/>
-
-    }
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

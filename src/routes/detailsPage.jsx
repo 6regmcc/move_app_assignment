@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import img from "../images/film-poster-placeholder.png";
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from "@mui/material/Paper";
-import {Autocomplete, Chip, Rating, TextField} from "@mui/material";
+import {Autocomplete, Chip, IconButton, Rating, TextField} from "@mui/material";
 import Divider from '@mui/material/Divider';
 
 import sampleMovieDetails from "../sampleMovieDetails.js";
@@ -15,25 +15,44 @@ import MovieReleaseDate from "../components/movieDetailsReleaseDate.jsx"
 import MovieOverview from "../components/movieDetailsOverview.jsx";
 import MovieRating from "../components/movieDetailsRating";
 import MovieGenres from "../components/movieDetailsGenres.jsx";
+import FavoriteIcon from "@mui/icons-material/Favorite.js";
+import CardActions from "@mui/material/CardActions";
+
+import {getMovieDetails} from "../api/tmdb.jsx";
+import {useLoaderData} from "react-router-dom";
+
+export async function loader (props) {
+    const movie = await getMovieDetails(props.params.id)
+    return movie
+}
 
 
-export default function DetailsPage (props) {
 
+export default function DetailsPage () {
+    const movie = useLoaderData()
     return (
-        <Container sx={{width: "100%", mt:"10%",}} >
-            <Paper sx={{pt:5}}>
-                <Grid container spacing={2}sx={{m:3}} >
+        <Container p sx={{width: "100%", mt:"10%",}} >
+            <Paper   component="div" sx={{pt:5}}>
+                <Grid  container spacing={2}sx={{m:3}} >
                     <Grid xs={12} sm={6} >
-                        <MoviePoster poster_path={props.movie.poster_path} />
+                        <MoviePoster poster_path={movie.poster_path} />
                     </Grid>
                     <Grid xs={12} sm={6}>
-                        <MovieTitle title={props.movie.title} />
-                        <MovieReleaseDate release_date={props.movie.release_date} />
-                        <MovieOverview overview={props.movie.overview} />
-                        <MovieRating vote_average={props.movie.vote_average} vote_count={props.movie.vote_count} />
+                        <MovieTitle title={movie.title} />
+                        <MovieReleaseDate release_date={movie.release_date} />
+                        <MovieOverview overview={movie.overview} />
+                        <MovieRating vote_average={movie.vote_average} vote_count={movie.vote_count} />
                         <Divider sx={{py:2}} />
-                        <MovieGenres genres={props.movie.genres} />
+                        <MovieGenres genres={movie.genres} />
                         <Divider sx={{py:2}} />
+
+                        <CardActions disableSpacing>
+                            <IconButton aria-label="add to favorites">
+                                <FavoriteIcon />
+                            </IconButton>
+                        </CardActions>
+
+
                     </Grid>
                 </Grid>
             </Paper>
