@@ -20,6 +20,13 @@ import CardActions from "@mui/material/CardActions";
 
 import {getMovieDetails} from "../api/tmdb.jsx";
 import {useLoaderData} from "react-router-dom";
+import { useContext } from 'react';
+
+
+
+
+
+
 
 export async function loader (props) {
     const movie = await getMovieDetails(props.params.id)
@@ -30,8 +37,9 @@ export async function loader (props) {
 
 export default function DetailsPage () {
     const movie = useLoaderData()
+
     return (
-        <Container p sx={{width: "100%", mt:"10%",}} >
+        <Container sx={{width: "100%", mt:"10%",}} >
             <Paper   component="div" sx={{pt:5}}>
                 <Grid  container spacing={2}sx={{m:3}} >
                     <Grid xs={12} sm={6} >

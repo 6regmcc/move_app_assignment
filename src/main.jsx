@@ -14,6 +14,12 @@ import App from "./App.jsx"
 import DetailsPage from "./routes/detailsPage.jsx"
 import sampleDetails from "./sampleMovieDetails.js"
 import {loader as movieDetailsLoader} from "./routes/detailsPage.jsx"
+import TestPage from "./routes/testpage.jsx";
+import MoviesContextProvider from "./context/movieContext.jsx"
+import { createClient } from '@supabase/supabase-js'
+import SignIn from "./routes/login.jsx"
+import SignUp from "./routes/signUp.jsx";
+
 
 const router = createBrowserRouter([
     {
@@ -32,10 +38,24 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: "/testpage",
+        element: <TestPage />
+    },
+    {
+        path: "/login",
+        element: <SignIn />
+    },
+    {
+        path: "/signup",
+        element: <SignUp />
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <MoviesContextProvider>
+            <RouterProvider router={router} />
+        </MoviesContextProvider>
     </React.StrictMode>
 );
