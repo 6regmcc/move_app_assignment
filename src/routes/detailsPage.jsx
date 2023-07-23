@@ -15,17 +15,12 @@ import MovieReleaseDate from "../components/movieDetailsReleaseDate.jsx"
 import MovieOverview from "../components/movieDetailsOverview.jsx";
 import MovieRating from "../components/movieDetailsRating";
 import MovieGenres from "../components/movieDetailsGenres.jsx";
-import FavoriteIcon from "@mui/icons-material/Favorite.js";
-import CardActions from "@mui/material/CardActions";
-
 import {getMovieDetails} from "../api/tmdb.jsx";
 import {useLoaderData} from "react-router-dom";
-import { useContext } from 'react';
-
-
-
-
-
+import MovieFavoriteIcon from "../components/favoriteIcon.jsx";
+import {useQuery} from "@tanstack/react-query";
+import {supabase} from "../api/supabaseClient.js";
+import React from "react";
 
 
 export async function loader (props) {
@@ -33,12 +28,37 @@ export async function loader (props) {
     return movie
 }
 
-
+function checkIfMovieInList (movie, dbData) {
+    for(let i = 0; i < dbData.length; i++){
+        if (dbData[i].item_id === movie.id){
+            return true
+        }
+    }
+}
 
 export default function DetailsPage () {
     const movie = useLoaderData()
 
+    const { isLoading, isError, data, error } = useQuery({
+        queryKey: ['savedLists'],
+        queryFn: async () => {
+            const data = await supabase.from('savedLists').select()
+            return data
+        },
 
+    })
+
+    if (isLoading) {
+        return <span>Loading...</span>
+    }
+
+    if (isError) {
+        return <span>Error: {error.message}</span>
+    }
+
+    if (checkIfMovieInList(movie, data.data)){
+        movie.favourites = true
+    }
     return (
         <Container sx={{width: "100%", mt:"10%",}} >
             <Paper   component="div" sx={{pt:5}}>
@@ -54,12 +74,7 @@ export default function DetailsPage () {
                         <Divider sx={{py:2}} />
                         <MovieGenres genres={movie.genres} />
                         <Divider sx={{py:2}} />
-
-                        <CardActions disableSpacing>
-                            <IconButton aria-label="add to favorites">
-                                <FavoriteIcon />
-                            </IconButton>
-                        </CardActions>
+                        <MovieFavoriteIcon movie={movie} />
 
 
                     </Grid>

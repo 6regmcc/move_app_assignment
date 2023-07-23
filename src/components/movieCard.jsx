@@ -9,8 +9,7 @@ import {IconButton} from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import img from "/src/images/film-poster-placeholder.png"
 import CardActionArea from '@mui/material/CardActionArea';
-import { useContext } from 'react';
-import {MoviesContext} from "../context/movieContext.jsx"
+import MovieFavoriteIcon from "./favoriteIcon.jsx";
 
 
 
@@ -49,12 +48,7 @@ export default function MovieCard ({movie}) {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites" onClick={onUserSelect}>
-                        <FavoriteIcon />
-                    </IconButton>
-                    {movie.favourites && <Typography>This is a faviourite</Typography>}
-                </CardActions>
+               <MovieFavoriteIcon movie={movie}/>
             </Card>
 
     )
