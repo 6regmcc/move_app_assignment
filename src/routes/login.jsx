@@ -35,7 +35,7 @@ export default function SignIn() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        signInWithEmail(data.get('email'), data.get('password'))
+        signInWithEmail(data.get('email'), data.get('password')).then(result => console.log(result))
 
     };
 

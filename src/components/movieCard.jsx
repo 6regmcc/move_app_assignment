@@ -13,14 +13,13 @@ import { useContext } from 'react';
 import {MoviesContext} from "../context/movieContext.jsx"
 
 
-export default function MovieCard ({movie}) {
-    const context = useContext(MoviesContext);
 
-    console.log(context.favourites)
+export default function MovieCard ({movie}) {
 
     const onUserSelect = (e) => {
         e.preventDefault();
-        context.addToFavourites(movie.id);
+
+
     };
 
     return (
@@ -54,7 +53,7 @@ export default function MovieCard ({movie}) {
                     <IconButton aria-label="add to favorites" onClick={onUserSelect}>
                         <FavoriteIcon />
                     </IconButton>
-
+                    {movie.favourites && <Typography>This is a faviourite</Typography>}
                 </CardActions>
             </Card>
 

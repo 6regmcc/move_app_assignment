@@ -38,6 +38,7 @@ export async function loader (props) {
 export default function DetailsPage () {
     const movie = useLoaderData()
 
+
     return (
         <Container sx={{width: "100%", mt:"10%",}} >
             <Paper   component="div" sx={{pt:5}}>

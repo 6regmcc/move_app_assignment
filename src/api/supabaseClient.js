@@ -13,6 +13,7 @@ export async function signInWithEmail(email, password) {
         email: email,
         password: password,
     })
+    console.log(data)
 }
 
 
@@ -31,4 +32,13 @@ export async function signUpWithEmail(email, password, firstName, lastName){
     )
 }
 
+export async function addToTable(){
+    const { data, error } = await supabase
+        .from('testTable')
+        .insert({  name: 'First item', user_id:"9e8e036b-5338-4367-bb3d-48ae748dfcc6" ,item_id: 123})
+        .select()
 
+
+
+
+}

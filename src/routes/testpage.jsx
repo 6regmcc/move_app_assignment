@@ -1,20 +1,31 @@
-import React, { useContext } from "react";
-import { MoviesContext } from "../context/movieContext.jsx"
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import React from "react";
+import { useQuery } from '@tanstack/react-query'
+import {supabase} from "../api/supabaseClient.js";
 
-const AddToFavouritesIcon = ({ movie }) => {
-    const context = useContext(MoviesContext);
 
-    const onUserSelect = (e) => {
-        e.preventDefault();
-        context.addToFavourites(movie);
-    };
-    return (
-        <IconButton aria-label="add to favorites" onClick={onUserSelect}>
-            <FavoriteIcon color="primary" fontSize="large" />
-        </IconButton>
-    );
-};
 
-export default AddToFavouritesIcon;
+
+export default function TestPage() {
+    const { isLoading, isError, data, error } = useQuery({
+        queryKey: ['savedLists'],
+        queryFn: async () => {
+            const data = await supabase.from('savedLists').select()
+            return data
+        },
+
+    })
+
+    if (isLoading) {
+        return <span>Loading...</span>
+    }
+
+    if (isError) {
+        return <span>Error: {error.message}</span>
+    }
+
+    return(
+        <div>
+            {data.data.map(item => item.id)}
+        </div>
+    )
+}

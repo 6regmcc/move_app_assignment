@@ -1,51 +1,41 @@
 import React, { useState } from "react";
+import {supabase} from "../api/supabaseClient.js";
 
 export const MoviesContext = React.createContext(null);
 
 const MoviesContextProvider = (props) => {
-    const [myReviews, setMyReviews] = useState( {} )
-    const [favourites, setFavourites] = useState([]);
-    const [mustWatch, setMustWatch] = useState([])
-    const [lists, setLists] = useState({})
+    const [fetchError, setFetchError] = useState(null);
+    const [favourites, setFavourites] = useState(null)
 
-
-    const addToFavourites = (movie) => {
-        let updatedFavourites = [...favourites];
-        if (!favourites.includes(movie)) {
-            updatedFavourites.push(movie);
+    const getFavourites = async () => {
+        const {data, error} = await supabase
+            .from('savedLists')
+            .select()
+        if (error) {
+            setFetchError("error getting data from db")
+            setFavourites(null)
+            console.log(error)
         }
-        setFavourites(updatedFavourites);
 
-    };
-
-    const addToMustWatch = (movie) => {
-        let updatedMustWatch = [...mustWatch];
-        if (!mustWatch.includes(movie.id)) {
-            updatedMustWatch.push(movie.id);
+        if (data) {
+            setFavourites(data)
+            setFetchError(null)
         }
-        setMustWatch(updatedMustWatch);
-
     }
 
-    // We will use this function in a later section
-    const removeFromFavourites = (movie) => {
-        setFavourites(favourites.filter((mId) => mId !== movie.id));
-    };
 
-    const addReview = (movie, review) => {   // NEW
-        setMyReviews( {...myReviews, [movie.id]: review } )
-    };
+
+
+
+
 
 
     return (
         <MoviesContext.Provider
             value={{
                 favourites,
-                addToFavourites,
-                removeFromFavourites,
-                addReview,
-                addToMustWatch,
-                mustWatch
+                getFavourites,
+
             }}
         >
             {props.children}

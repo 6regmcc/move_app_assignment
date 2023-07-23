@@ -20,8 +20,16 @@ import { createClient } from '@supabase/supabase-js'
 import SignIn from "./routes/login.jsx"
 import SignUp from "./routes/signUp.jsx";
 
+import {
+    QueryClient,
+    QueryClientProvider,
+    useQuery,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
+
     {
         path: "/",
         element: <Root />,
@@ -53,9 +61,12 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
-        <MoviesContextProvider>
-            <RouterProvider router={router} />
-        </MoviesContextProvider>
-    </React.StrictMode>
+
+    <QueryClientProvider client={queryClient}>
+        <React.StrictMode>
+            <MoviesContextProvider>
+                <RouterProvider router={router} />
+            </MoviesContextProvider>
+        </React.StrictMode>
+    </QueryClientProvider>
 );
