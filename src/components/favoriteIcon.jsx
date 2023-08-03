@@ -6,10 +6,11 @@ import {supabase} from "../api/supabaseClient.js";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFavoritesData} from "../hooks/useFavoritesData.js";
 import React from "react";
+import {useDbUpdate} from "../hooks/useDbUpdate.js";
 
 
 function checkIfMovieInList (id, dbData) {
-    console.log('this function was called')
+
     for(let i = 0; i < dbData.length; i++){
         if (dbData[i].item_id === id){
             return true
@@ -32,7 +33,7 @@ export default function MovieFavoriteIcon (props) {
             .eq('item_id', id)
         return data
     },{onSuccess: () => queryClient.invalidateQueries('savedLists')})
-
+    /*
     const addFavourite = useMutation(async (id) => {
         const { data, error } = await supabase
             .from('savedLists')
@@ -42,7 +43,9 @@ export default function MovieFavoriteIcon (props) {
             .select()
         return data
     },{onSuccess: () => queryClient.invalidateQueries('savedLists')})
+    */
 
+    const addFavourite = useDbUpdate()
     const { isLoading, isError, data, error } = useFavoritesData()
 
     if (isLoading) {
@@ -59,7 +62,7 @@ export default function MovieFavoriteIcon (props) {
         if (isFavouriteMovie) {
             deleteFavourite.mutate(props.movie.id)
         } else {
-            addFavourite.mutate(props.movie.id)
+            addFavourite.mutate({table:'savedLists',id:props.movie.id }, )
         }
     }
 
