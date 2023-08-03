@@ -17,17 +17,29 @@ function checkIfMovieInList (id, dbData) {
     }
 }
 
+async function addToFavourites (id) {
 
+}
 
 
 export default function MovieFavoriteIcon (props) {
     const queryClient = useQueryClient()
 
-    const updateFavourite = useMutation(async (id) => {
+    const deleteFavourite = useMutation(async (id) => {
         const data = await supabase
             .from('savedLists')
             .delete()
             .eq('item_id', id)
+        return data
+    },{onSuccess: () => queryClient.invalidateQueries('savedLists')})
+
+    const addFavourite = useMutation(async (id) => {
+        const { data, error } = await supabase
+            .from('savedLists')
+            .insert([
+                { 'list_name': 'favourites', item_id: id, 'user_id': '9e8e036b-5338-4367-bb3d-48ae748dfcc6' },
+            ])
+            .select()
         return data
     },{onSuccess: () => queryClient.invalidateQueries('savedLists')})
 
@@ -42,12 +54,19 @@ export default function MovieFavoriteIcon (props) {
     }
 
     const isFavouriteMovie = checkIfMovieInList(props.movie.id, data.data)
-    console.log(props.movie.id +" and " )
-    console.log(isFavouriteMovie)
+
+    function handleFavouriteUpdate () {
+        if (isFavouriteMovie) {
+            deleteFavourite.mutate(props.movie.id)
+        } else {
+            addFavourite.mutate(props.movie.id)
+        }
+    }
+
 
     return (
         <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites" onClick={()=>{updateFavourite.mutate(props.movie.id)}}>
+            <IconButton aria-label="add to favorites" onClick={handleFavouriteUpdate}>
                 <FavoriteIcon   sx={{color: isFavouriteMovie && "red"}} />
             </IconButton>
         </CardActions>
