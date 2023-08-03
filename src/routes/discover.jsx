@@ -25,6 +25,7 @@ function checkIfMovieInList (movie, dbData) {
 
 export default function DiscoverPage () {
     const movies = useLoaderData()
+    /*
     const { isLoading, isError, data, error } = useQuery({
         queryKey: ['savedLists'],
         queryFn: async () => {
@@ -43,14 +44,19 @@ export default function DiscoverPage () {
     }
 
     //console.log(data.data)
+
+     */
     return (
         <div>
 
             <Grid container spacing={2}  >
                 {movies.map((movie) => {
+                    /*
                     if(checkIfMovieInList(movie, data.data)){
                         movie.favourites = true
                     }
+
+                     */
                     return (
                         <Grid key={movie.title} md={3}>
                             <MovieCard movie={movie} />

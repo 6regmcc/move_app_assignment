@@ -21,7 +21,7 @@ import MovieFavoriteIcon from "../components/favoriteIcon.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabaseClient.js";
 import React from "react";
-
+import {useFavoritesData} from "../hooks/useFavoritesData.js";
 
 export async function loader (props) {
     const movie = await getMovieDetails(props.params.id)
@@ -38,15 +38,8 @@ function checkIfMovieInList (movie, dbData) {
 
 export default function DetailsPage () {
     const movie = useLoaderData()
-
-    const { isLoading, isError, data, error } = useQuery({
-        queryKey: ['savedLists'],
-        queryFn: async () => {
-            const data = await supabase.from('savedLists').select()
-            return data
-        },
-
-    })
+    /*
+    const { isLoading, isError, data, error } = useFavoritesData()
 
     if (isLoading) {
         return <span>Loading...</span>
@@ -59,6 +52,8 @@ export default function DetailsPage () {
     if (checkIfMovieInList(movie, data.data)){
         movie.favourites = true
     }
+
+    */
     return (
         <Container sx={{width: "100%", mt:"10%",}} >
             <Paper   component="div" sx={{pt:5}}>

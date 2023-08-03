@@ -19,6 +19,7 @@ import MoviesContextProvider from "./context/movieContext.jsx"
 import { createClient } from '@supabase/supabase-js'
 import SignIn from "./routes/login.jsx"
 import SignUp from "./routes/signUp.jsx";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 import {
     QueryClient,
@@ -68,5 +69,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <RouterProvider router={router} />
             </MoviesContextProvider>
         </React.StrictMode>
+        <ReactQueryDevtools />
     </QueryClientProvider>
 );
