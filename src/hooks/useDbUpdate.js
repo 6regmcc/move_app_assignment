@@ -1,24 +1,9 @@
-
 import {supabase} from "../api/supabaseClient.js";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-
-/*
-const addFavourite = useMutation(async (table, dbData) => {
-    const { data, error } = await supabase
-        .from(table)
-        .insert([
-            { dbData},
-        ])
-        .select()
-    return data
-},{onSuccess: () => queryClient.invalidateQueries(table)},{onError: () => {console.log(error)}})
-
-*/
 
 export const useDbUpdate = () => {
     const queryClient = useQueryClient()
     return useMutation(async (variables) => {
-        console.log(variables)
         const { data, error } = await supabase
             .from(variables.table)
             .insert([
@@ -31,5 +16,6 @@ export const useDbUpdate = () => {
             console.log('favourite added')
         }})
 }
+
 
 

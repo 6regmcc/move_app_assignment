@@ -1,16 +1,12 @@
 import {IconButton} from "@mui/material";
-import * as PropTypes from "prop-types";
 import CardActions from "@mui/material/CardActions";
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import {supabase} from "../api/supabaseClient.js";
-import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import {useFavoritesData} from "../hooks/useFavoritesData.js";
 import React from "react";
 import {useDbUpdate} from "../hooks/useDbUpdate.js";
-
+import {useDbDelete} from "../hooks/useDbDelete.js";
 
 function checkIfMovieInList (id, dbData) {
-
     for(let i = 0; i < dbData.length; i++){
         if (dbData[i].item_id === id){
             return true
@@ -18,33 +14,11 @@ function checkIfMovieInList (id, dbData) {
     }
 }
 
-async function addToFavourites (id) {
-
-}
 
 
 export default function MovieFavoriteIcon (props) {
-    const queryClient = useQueryClient()
 
-    const deleteFavourite = useMutation(async (id) => {
-        const data = await supabase
-            .from('savedLists')
-            .delete()
-            .eq('item_id', id)
-        return data
-    },{onSuccess: () => queryClient.invalidateQueries('savedLists')})
-    /*
-    const addFavourite = useMutation(async (id) => {
-        const { data, error } = await supabase
-            .from('savedLists')
-            .insert([
-                { 'list_name': 'favourites', item_id: id, 'user_id': '9e8e036b-5338-4367-bb3d-48ae748dfcc6' },
-            ])
-            .select()
-        return data
-    },{onSuccess: () => queryClient.invalidateQueries('savedLists')})
-    */
-
+    const deleteFavourite = useDbDelete()
     const addFavourite = useDbUpdate()
     const { isLoading, isError, data, error } = useFavoritesData()
 
@@ -60,12 +34,11 @@ export default function MovieFavoriteIcon (props) {
 
     function handleFavouriteUpdate () {
         if (isFavouriteMovie) {
-            deleteFavourite.mutate(props.movie.id)
+            deleteFavourite.mutate({table:'savedLists',id: props.movie.id})
         } else {
             addFavourite.mutate({table:'savedLists',id:props.movie.id }, )
         }
     }
-
 
     return (
         <CardActions disableSpacing>
@@ -73,6 +46,5 @@ export default function MovieFavoriteIcon (props) {
                 <FavoriteIcon   sx={{color: isFavouriteMovie && "red"}} />
             </IconButton>
         </CardActions>
-        )
-
+    )
 }
