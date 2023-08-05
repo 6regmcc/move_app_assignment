@@ -1,6 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://api.themoviedb.org"
+const apiKey = import.meta.env.VITE_TMDB_API_KEY
 
 export async function getMovieDiscover() {
     try {
@@ -22,5 +23,9 @@ export async function getMovieDetails(id) {
     } catch (error) {
         console.error(error);
     }
+}
+
+export async function getReviews() {
+    return await axios.get(`https://api.themoviedb.org/3/movie/447365/reviews?${apiKey}`)
 
 }

@@ -26,6 +26,7 @@ import {
     QueryClientProvider,
     useQuery,
 } from '@tanstack/react-query'
+import Logout from "./routes/logout.jsx";
 
 const queryClient = new QueryClient()
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignUp />
+    },
+    {
+        path: "/logout",
+        element: <Logout />
     }
 ]);
 

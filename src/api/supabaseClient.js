@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://ewpvvzbimorgqxmkzanf.supabase.co'
-const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
+const supabaseKeyAnonKey = import.meta.env.VITE_SUPABASE_KEY
 
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+export const supabase = createClient(supabaseUrl, supabaseKeyAnonKey)
 
 
 
@@ -14,6 +14,11 @@ export async function signInWithEmail(email, password) {
         password: password,
     })
     console.log(data)
+}
+
+export async function logOut() {
+    return await supabase.auth.signOut()
+
 }
 
 
