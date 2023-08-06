@@ -1,31 +1,26 @@
-import React from "react";
-import { useQuery } from '@tanstack/react-query'
-import {supabase} from "../api/supabaseClient.js";
+import {useContext} from "react";
+import Container from "@mui/material/Container";
+import {logOut, supabase} from "../api/supabaseClient.js";
+import Link from "@mui/material/Link";
+import { useNavigate } from "react-router-dom";
+import {useMutation, useQuery} from "@tanstack/react-query";
+import {useGetReviewDbData} from "../hooks/useGetReviewDbData.js"
 
+import UserContext from "../context/userContext.jsx";
+import { useOutletContext } from "react-router-dom";
+import TestUserComponent from "../components/testUserComponent.jsx";
+import {useEffect} from "react";
+import {useNavigation} from "react-router-dom";
+import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
+export default  function TestPage () {
+    const navigate = useNavigate()
+    const {user, setUser} = useContext(UserContext)
+    useGetUserFromSession(setUser, navigate)
 
-
-export default function TestPage() {
-    const { isLoading, isError, data, error } = useQuery({
-        queryKey: ['savedLists'],
-        queryFn: async () => {
-            const data = await supabase.from('savedLists').select()
-            return data
-        },
-
-    })
-
-    if (isLoading) {
-        return <span>Loading...</span>
-    }
-
-    if (isError) {
-        return <span>Error: {error.message}</span>
-    }
-
-    return(
-        <div>
-            {data.data.map(item => item.id)}
-        </div>
+    return (
+        <Container>
+            <TestUserComponent/>
+        </Container>
     )
 }

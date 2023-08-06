@@ -12,8 +12,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {signInWithEmail} from "../api/supabaseClient.js"
+import {signInWithEmail, supabase} from "../api/supabaseClient.js"
 import { useNavigate } from "react-router-dom";
+import {useContext} from "react";
+import UserContext from "../context/userContext.jsx";
+
+
 
 function Copyright(props) {
     return (
@@ -33,15 +37,21 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
     const navigate = useNavigate()
     const handleSubmit = (event) => {
+
         event.preventDefault();
+
+
         const data = new FormData(event.currentTarget);
-        signInWithEmail(data.get('email'), data.get('password')).then(result => {console.log(result); navigate("/discover")})
+        const result = signInWithEmail(data.get('email'), data.get('password')).then(()=> navigate("/discover"))
+
+
 
     };
 
-
+    //
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">

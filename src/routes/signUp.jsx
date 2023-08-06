@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {signInWithEmail} from "../api/supabaseClient.js";
+import {signInWithEmail, signUpWithEmail} from "../api/supabaseClient.js";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -22,7 +22,7 @@ export default function SignUp() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        signInWithEmail(data.get('email'), data.get('password'))
+        signUpWithEmail(data.get('email'), data.get('password'))
 
     };
 

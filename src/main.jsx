@@ -15,11 +15,12 @@ import DetailsPage from "./routes/detailsPage.jsx"
 import sampleDetails from "./sampleMovieDetails.js"
 import {loader as movieDetailsLoader} from "./routes/detailsPage.jsx"
 import TestPage from "./routes/testpage.jsx";
-import MoviesContextProvider from "./context/movieContext.jsx"
+
 import { createClient } from '@supabase/supabase-js'
 import SignIn from "./routes/login.jsx"
 import SignUp from "./routes/signUp.jsx";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import {UserProvider} from "./context/userContext.jsx";
 
 import {
     QueryClient,
@@ -45,13 +46,14 @@ const router = createBrowserRouter([
                 path: "/movie/:id",
                 element: <DetailsPage />,
                 loader: movieDetailsLoader
+            },
+            {
+                path: "/testpage",
+                element: <TestPage />
             }
         ]
     },
-    {
-        path: "/testpage",
-        element: <TestPage />
-    },
+
     {
         path: "/login",
         element: <SignIn />
@@ -68,12 +70,13 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 
-    <QueryClientProvider client={queryClient}>
-        <React.StrictMode>
-            <MoviesContextProvider>
-                <RouterProvider router={router} />
-            </MoviesContextProvider>
-        </React.StrictMode>
-        <ReactQueryDevtools />
-    </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+            <React.StrictMode>
+                <UserProvider>
+                    <RouterProvider router={router} />
+                </UserProvider>
+            </React.StrictMode>
+            <ReactQueryDevtools />
+        </QueryClientProvider>
+
 );

@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 
 
-export default function ApiReview (props) {
+export default function DbReview (props) {
     return (
         <Box>
             <div>
@@ -27,14 +27,14 @@ export default function ApiReview (props) {
                             justifyContent="space-between"
                             alignItems="flex-start"
                         >
-                            <Typography>{props.review.author_details.name || props.review.author_details.username}</Typography>
+                            <Typography>{props.review.frist_name }</Typography>
 
-                            <ReviewRating review={props.review.author_details.rating} />
+                            <ReviewRating review={props.review.rating} />
                         </Grid>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            {parse(props.review.content)}
+                            {parse(props.review.review)}
                         </Typography>
                     </AccordionDetails>
                 </Accordion>

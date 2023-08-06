@@ -9,11 +9,11 @@ export const supabase = createClient(supabaseUrl, supabaseKeyAnonKey)
 
 
 export async function signInWithEmail(email, password) {
-    const {data, error} = await supabase.auth.signInWithPassword({
+    return await supabase.auth.signInWithPassword({
         email: email,
         password: password,
     })
-    console.log(data)
+
 }
 
 export async function logOut() {
@@ -47,3 +47,7 @@ export async function addToTable(){
 
 
 }
+
+
+
+

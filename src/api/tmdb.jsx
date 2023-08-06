@@ -29,3 +29,4 @@ export async function getReviews() {
     return await axios.get(`https://api.themoviedb.org/3/movie/447365/reviews?${apiKey}`)
 
 }
+

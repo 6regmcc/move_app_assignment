@@ -56,17 +56,13 @@ export default function DetailsPage () {
                         <MovieGenres genres={movie.genres} />
                         <Divider sx={{py:2}} />
                         <MovieFavoriteIcon movie={movie} />
-
-
                     </Grid>
                 </Grid>
             </Paper>
             <Paper>
-                <Reviews />
+                <Reviews movie={movie}/>
             </Paper>
         </Container>
-
-
 
     )
 }
