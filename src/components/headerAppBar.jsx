@@ -46,7 +46,7 @@ function HeaderAppBar (props) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
                         Discover
                     </Typography>
-                    <Link href="logout" color="inherit">Logout</Link>
+                    <Link href="/logout" color="inherit">Logout</Link>
                 </Toolbar>
             </AppBar>
             <FilterDrawer open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>
