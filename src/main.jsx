@@ -6,8 +6,8 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
-import DiscoverPage from "./routes/discover";
-import {loader as discoverLoader} from "./routes/discover.jsx"
+import DiscoverPage from "./routes/discoverMovies.jsx";
+import {loader as discoverLoader} from "./routes/discoverMovies.jsx"
 import TemporaryDrawer from "./routes/testpage.jsx";
 import {sampleMovie} from "./sampleData.js";
 import App from "./App.jsx"
@@ -40,9 +40,13 @@ const router = createBrowserRouter([
         element: <Root />,
         children: [
             {
-                path: "/discover",
+                path: "/discover/movies",
                 element: <DiscoverPage />,
                 loader: discoverLoader
+            },
+            {
+                path: "/discover/tv",
+
             },
             {
                 path: "/movie/:id",
