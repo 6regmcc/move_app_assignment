@@ -21,6 +21,7 @@ import SignIn from "./routes/login.jsx"
 import SignUp from "./routes/signUp.jsx";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {UserProvider} from "./context/userContext.jsx";
+import {loader as SimilarMoviesLoader} from "./routes/SimilarPage.jsx"
 
 import {
     QueryClient,
@@ -28,6 +29,7 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import Logout from "./routes/logout.jsx";
+import SimilarPage from "./routes/SimilarPage";
 
 const queryClient = new QueryClient()
 
@@ -50,6 +52,11 @@ const router = createBrowserRouter([
             {
                 path: "/testpage",
                 element: <TestPage />
+            },
+            {
+                path: "/movie/:id/similar",
+                element: <SimilarPage />,
+                loader: SimilarMoviesLoader
             }
         ]
     },
