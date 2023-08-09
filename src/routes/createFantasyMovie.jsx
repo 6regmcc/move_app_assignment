@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Rating, TextareaAutosize} from "@mui/material";
 import * as React from "react";
 import Container from "@mui/material/Container";
@@ -9,17 +9,25 @@ import {useDbUpdate} from "../hooks/useDbUpdate.js";
 
 import {useNavigate} from "react-router-dom";
 import Box from "@mui/material/Box";
+import AppContext from "../context/appContext.jsx";
+import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
 export default function CreateFantasyMovie () {
+    const {user, setUser} = useContext(AppContext)
+
+    useGetUserFromSession(setUser)
     const navigate = useNavigate()
     const [title, setTitle] = useState("")
     const [description, setDescription ] = useState('')
     const [rating, setRating] = useState(0)
     const saveFanastyMovie = useDbUpdate()
+    console.log(user)
     function handleSubmit (e) {
         e.preventDefault()
+
         const data = new FormData(e.currentTarget)
-        saveFanastyMovie.mutate({table:'fantasyMovies', data:{title:data.get('title'), description:data.get('description'), rating:data.get('rating')}})
+        saveFanastyMovie.mutate({table:'fantasyMovies', data:{title:data.get('title'), description:data.get('description'), rating:data.get('rating'),user_id:user.user_id
+            }})
         setRating(0)
         setDescription("")
         setTitle("")

@@ -23,9 +23,9 @@ export default function FantasyMovies(){
         <div>
             <h3>Fantasy Movies</h3>
             <Link href="/discover/fantasymovies/create">Create Fantasy Movie</Link>
-            {data.data.map(movie => {
+            {data.data.map((movie,i) => {
                 return (
-                    <div>
+                    <div key={i}>
                         <FantasyMovieCard movie={movie} />
                     </div>
                     )
