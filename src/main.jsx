@@ -22,7 +22,7 @@ import SignUp from "./routes/signUp.jsx";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {UserProvider} from "./context/userContext.jsx";
 import {loader as SimilarMoviesLoader} from "./routes/SimilarPage.jsx"
-
+import DiscoverTVPage from "./routes/discoverTv.jsx";
 import {
     QueryClient,
     QueryClientProvider,
@@ -46,6 +46,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/discover/tv",
+                element: <DiscoverTVPage />
 
             },
             {

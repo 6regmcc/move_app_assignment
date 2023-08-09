@@ -1,14 +1,10 @@
 import Container from '@mui/material/Container';
 import Typography from "@mui/material/Typography";
-
-import Box from "@mui/material/Box";
-import img from "../images/film-poster-placeholder.png";
 import Grid from '@mui/material/Unstable_Grid2';
 import Paper from "@mui/material/Paper";
-import {Autocomplete, Chip, IconButton, Rating, TextField} from "@mui/material";
+
 import Divider from '@mui/material/Divider';
 
-import sampleMovieDetails from "../sampleMovieDetails.js";
 import MoviePoster from "../components/movieDetailsPoster.jsx";
 import MovieTitle from "../components/movieDetailsTitle.jsx";
 import MovieReleaseDate from "../components/movieDetailsReleaseDate.jsx"
@@ -25,6 +21,9 @@ import {useFavoritesData} from "../hooks/useFavoritesData.js";
 import Reviews from "../components/reviews.jsx"
 import UserContext from "../context/userContext.jsx";
 import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
+
+
+import SeeSimilarMoviesLink from "../components/similarMoviesLink";
 
 export async function loader (props) {
     const movie = await getMovieDetails(props.params.id)
@@ -60,8 +59,10 @@ export default function DetailsPage () {
                         <MovieGenres genres={movie.genres} />
                         <Divider sx={{py:2}} />
                         <MovieFavoriteIcon movie={movie} />
+                        <SeeSimilarMoviesLink movie={movie} />
                     </Grid>
                 </Grid>
+
             </Paper>
             <Paper>
                 <Reviews movie={movie}/>

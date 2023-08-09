@@ -13,20 +13,19 @@ import MovieFavoriteIcon from "./favoriteIcon.jsx";
 
 
 
-export default function MovieCard ({movie}) {
+export default function MovieCard (props) {
 
     const onUserSelect = (e) => {
         e.preventDefault();
 
 
     };
-
     return (
 
             <Card sx={{ maxWidth: 345, height: '100%'}}>
-                <CardActionArea  href={`/movie/${movie.id}`}>
+                <CardActionArea  href={`/${props.type}/${props.movie.id}`}>
                     <CardHeader
-                        title={movie.title}
+                        title={props.movie.title}
                         sx={{height: 50}}
 
                     />
@@ -34,8 +33,8 @@ export default function MovieCard ({movie}) {
                         component="img"
                         height="350"
                         image={
-                            movie.poster_path
-                                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                            props.movie.poster_path
+                                ? `https://image.tmdb.org/t/p/w500/${props.movie.poster_path}`
                                 : img
                         }
                         alt="Movie poster"
@@ -48,7 +47,7 @@ export default function MovieCard ({movie}) {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-               <MovieFavoriteIcon movie={movie}/>
+               <MovieFavoriteIcon movie={props.movie}/>
             </Card>
 
     )
