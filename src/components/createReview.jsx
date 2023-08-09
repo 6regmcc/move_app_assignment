@@ -12,17 +12,21 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import * as React from "react";
 import {TextareaAutosize} from "@mui/material";
 import {useDbUpdate} from "../hooks/useDbUpdate.js";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import UserContext from "../context/userContext.jsx";
 
 
 export default function CreateReview(props){
+    const [review, setReview] = useState("");
+    const [rating, setRating] = useState(0)
     const {user} = useContext(UserContext)
     const saveReviewToDb = useDbUpdate()
     function handleSubmit (e) {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
         saveReviewToDb.mutate({table:'reviewsTable', data:{frist_name: user.first_name, user_id: user.user_id, item_id:props.movie.id, review:data.get('review'),rating:data.get('rating'), type:props.type}})
+        setRating(0)
+        setReview("")
     }
     return(
         <Box component="form" onSubmit={handleSubmit}>
@@ -42,8 +46,8 @@ export default function CreateReview(props){
                         alignItems="flex-start"
                     >
 
-                        <TextareaAutosize style={{ width: "60%" }} label="Review"  name="review" minRows={6} />
-                        <Rating label="Rating" name="rating" precision={0.5} max={10} />
+                        <TextareaAutosize onChange={e=>{setReview(e.target.value)}} style={{ width: "60%" }} label="Review"  value={review} name="review" minRows={6} />
+                        <Rating onChange={e=>{setRating(parseInt(e.target.value))}} label="Rating" name="rating" precision={0.5} max={10} value={rating}/>
 
                     </Grid>
                     <Button type="submit" sx={{py:2, m:2}}>Create Review</Button>
