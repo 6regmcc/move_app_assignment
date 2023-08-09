@@ -13,13 +13,13 @@ import * as React from "react";
 import {TextareaAutosize} from "@mui/material";
 import {useDbUpdate} from "../hooks/useDbUpdate.js";
 import {useContext, useState} from "react";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 
 
 export default function CreateReview(props){
     const [review, setReview] = useState("");
     const [rating, setRating] = useState(0)
-    const {user} = useContext(UserContext)
+    const {user} = useContext(AppContext)
     const saveReviewToDb = useDbUpdate()
     function handleSubmit (e) {
         e.preventDefault()

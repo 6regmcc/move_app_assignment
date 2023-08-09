@@ -1,8 +1,8 @@
 import {useContext} from "react";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 
 export default function TestUserComponent (props) {
-    const {user} = useContext(UserContext)
+    const {user} = useContext(AppContext)
     console.log(user)
     return (
         <div>

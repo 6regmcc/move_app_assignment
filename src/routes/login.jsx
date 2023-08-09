@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {signInWithEmail, supabase} from "../api/supabaseClient.js"
 import { useNavigate } from "react-router-dom";
 import {useContext} from "react";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 
 
 

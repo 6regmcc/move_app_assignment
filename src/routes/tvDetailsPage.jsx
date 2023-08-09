@@ -24,55 +24,54 @@ import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
 
 import SeeSimilarMoviesLink from "../components/similarMoviesLink";
-import Cast from "../components/cast.jsx";
-import Link from "@mui/material/Link";
+import axios from "axios";
 
 export async function loader (props) {
-    const movie = await getMovieDetails(props.params.id)
-    return movie
-}
-
-function checkIfMovieInList (movie, dbData) {
-    for(let i = 0; i < dbData.length; i++){
-        if (dbData[i].item_id === movie.id){
-            return true
-        }
-    }
+    const tvId = props.params.id
+    return tvId
 }
 
 
 
-export default function DetailsPage (props) {
-    const movie = useLoaderData()
+export default function TVDetailsPage () {
+    const tvId = useLoaderData()
     const {user, setUser} = useContext(AppContext)
-
     useGetUserFromSession(setUser)
+    const {isLoading, data, error } = useQuery([`tvDetails${tvId}`], () => {
+        return axios.get(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+    })
+
+    if (isLoading) {
+        return <h2>Loading...</h2>
+    }
+    if (error) {
+        console.log(error)
+    }
+
 
     return (
         <Container sx={{width: "100%", mt:"10%",}} >
             <Paper   component="div" sx={{pt:5}}>
                 <Grid  container spacing={2}sx={{m:3}} >
                     <Grid xs={12} sm={6} >
-                        <MoviePoster poster_path={movie.poster_path} />
+                        <MoviePoster poster_path={data.data.poster_path} />
                     </Grid>
                     <Grid xs={12} sm={6}>
-                        <MovieTitle title={movie.title} />
-                        <MovieReleaseDate release_date={movie.release_date} />
-                        <MovieOverview overview={movie.overview} />
-                        <MovieRating vote_average={movie.vote_average} vote_count={movie.vote_count} />
+                        <MovieTitle title={data.data.title} />
+                        <MovieReleaseDate release_date={data.data.release_date} />
+                        <MovieOverview overview={data.data.overview} />
+                        <MovieRating vote_average={data.data.vote_average} vote_count={data.data.vote_count} />
                         <Divider sx={{py:2}} />
-                        <MovieGenres genres={movie.genres} />
+                        <MovieGenres genres={data.data.genres} />
                         <Divider sx={{py:2}} />
-                        <MovieFavoriteIcon type={'movie'} movie={movie} />
-                        <SeeSimilarMoviesLink movie={movie} />
-                        <br/>
-                        <Link href={`/movie/${movie.id}/cast`} > Cast</Link>
+                        <MovieFavoriteIcon type={'tv'} movie={data.data} />
+                        <SeeSimilarMoviesLink movie={data.data} />
                     </Grid>
                 </Grid>
 
             </Paper>
             <Paper>
-                <Reviews movie={movie}/>
+                <Reviews movie={data.data}/>
             </Paper>
         </Container>
 

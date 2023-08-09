@@ -5,7 +5,7 @@ import {useFavoritesData} from "../hooks/useFavoritesData.js";
 import React, {useContext} from "react";
 import {useDbUpdate} from "../hooks/useDbUpdate.js";
 import {useDbDelete} from "../hooks/useDbDelete.js";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
 function checkIfMovieInList (id, dbData) {
@@ -23,8 +23,8 @@ export default function MovieFavoriteIcon (props) {
     const deleteFavourite = useDbDelete()
     const addFavourite = useDbUpdate()
     const { isLoading, isError, data, error } = useFavoritesData()
-    const {user, setUser} = useContext(UserContext)
-
+    const {user, setUser} = useContext(AppContext)
+    const type = useContext(AppContext)
     if (isLoading) {
         return <span>Loading...</span>
     }
@@ -39,7 +39,7 @@ export default function MovieFavoriteIcon (props) {
         if (isFavouriteMovie) {
             deleteFavourite.mutate({table:'savedLists',id: props.movie.id})
         } else {
-            addFavourite.mutate({table:'savedLists',data:{item_id:props.movie.id,list_name:'favourites','user_id':user.user_id} }, )
+            addFavourite.mutate({table:'savedLists',data:{item_id:props.movie.id,list_name:'favourites','user_id':user.user_id,type:props.type} }, )
         }
     }
 

@@ -6,7 +6,7 @@ import HeaderAppBar from "../components/headerAppBar.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabaseClient.js";
 import React, {useContext} from "react";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 import axios from "axios";
 
@@ -14,7 +14,7 @@ import axios from "axios";
 
 
 export default function DiscoverTVPage () {
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(AppContext)
     useGetUserFromSession(setUser)
     const {isLoading, data, error } = useQuery(['discoverTv'], () => {
         return axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)

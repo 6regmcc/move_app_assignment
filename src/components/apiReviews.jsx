@@ -17,7 +17,7 @@ export default function ApiReviews (props) {
     }
 
     return (
-        dataApiReviews.data.results.map((review, index) => {
+        dataApiReviews?.data?.results.map((review, index) => {
             return <ApiReview key={index} review={review} />
         })
     )

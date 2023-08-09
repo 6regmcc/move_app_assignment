@@ -13,16 +13,28 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {signInWithEmail, signUpWithEmail} from "../api/supabaseClient.js";
+import {useDbUpdate} from "../hooks/useDbUpdate.js";
+import {useNavigate} from "react-router-dom";
 
-// TODO remove, this demo shouldn't need to reset the theme.
+
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+    const navigate = useNavigate()
+    const saveUserDetails = useDbUpdate()
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        signUpWithEmail(data.get('email'), data.get('password'))
+        const returnData = signUpWithEmail(data.get('email'), data.get('password'))
+        returnData.then(
+                returnData => {console.log(returnData.user.id)
+                saveUserDetails.mutate({table:'users',data:{user_id:returnData.user.id,first_name:data.get('firstName'),last_name:data.get('lastName'),user_role:'free'}})
+                navigate('/discover')
+            }
+
+        )
+
 
     };
 
@@ -105,7 +117,7 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/signin" variant="body2">
+                                <Link href="/login" variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

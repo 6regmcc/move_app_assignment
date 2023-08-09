@@ -5,7 +5,7 @@ import {useLoaderData} from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 import MovieCard from "../components/movieCard.jsx";
 import {useContext} from "react";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
 
@@ -18,7 +18,7 @@ export default function SimilarPage () {
     const {isLoading, data: similarMovies, error} = useQuery(['similarMovies'], () => {
         return axios.get(`https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
     })
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(AppContext)
     useGetUserFromSession(setUser)
 
     return (
@@ -28,7 +28,7 @@ export default function SimilarPage () {
 
                     return (
                         <Grid key={movie.title} md={3}>
-                            <MovieCard movie={movie} />
+                            <MovieCard type={'movie'} movie={movie} />
                         </Grid>
                     )
                 })}

@@ -6,7 +6,7 @@ import HeaderAppBar from "../components/headerAppBar.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabaseClient.js";
 import React, {useContext} from "react";
-import UserContext from "../context/userContext.jsx";
+import AppContext from "../context/appContext.jsx";
 import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
 
@@ -27,7 +27,7 @@ function checkIfMovieInList (movie, dbData) {
 
 export default function DiscoverPage () {
     const movies = useLoaderData()
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(AppContext)
     useGetUserFromSession(setUser)
 
     return (

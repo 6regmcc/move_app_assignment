@@ -35,6 +35,7 @@ export async function signUpWithEmail(email, password, firstName, lastName){
             }
         }
     )
+    return data
 }
 
 export async function addToTable(){

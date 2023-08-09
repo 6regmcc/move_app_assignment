@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from "@mui/material/styles"
 import FilterDrawer from "./filterDrawer.jsx";
+import Link from "@mui/material/Link";
 
 
 
@@ -45,7 +46,7 @@ function HeaderAppBar (props) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
                         Discover
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Link href="logout" color="inherit">Logout</Link>
                 </Toolbar>
             </AppBar>
             <FilterDrawer open={open} handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose}/>

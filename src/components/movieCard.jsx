@@ -42,12 +42,10 @@ export default function MovieCard (props) {
 
                     />
                     <CardContent>
-                        <Typography variant="body2" color="text.secondary">
-                            this is the movie card content
-                        </Typography>
+
                     </CardContent>
                 </CardActionArea>
-               <MovieFavoriteIcon movie={props.movie}/>
+               <MovieFavoriteIcon movie={props.movie} type={props.type}/>
             </Card>
 
     )
