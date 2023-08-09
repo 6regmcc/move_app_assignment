@@ -5,7 +5,7 @@ import {useEffect} from "react";
 
 
 
-export const  useGetUserFromSession = (setUser, navigate) => {
+export const  useGetUserFromSession = (setUser) => {
     return useEffect(() => {
         const getSession = supabase.auth.getSession().then((result) => {
             if(result.data.session === null){

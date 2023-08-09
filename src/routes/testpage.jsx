@@ -16,7 +16,7 @@ import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 export default  function TestPage () {
     const navigate = useNavigate()
     const {user, setUser} = useContext(UserContext)
-    useGetUserFromSession(setUser, navigate)
+    useGetUserFromSession(setUser)
 
     return (
         <Container>

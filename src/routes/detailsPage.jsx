@@ -20,9 +20,11 @@ import {useLoaderData} from "react-router-dom";
 import MovieFavoriteIcon from "../components/favoriteIcon.jsx";
 import {useQuery} from "@tanstack/react-query";
 import {supabase} from "../api/supabaseClient.js";
-import React from "react";
+import React, {useContext} from "react";
 import {useFavoritesData} from "../hooks/useFavoritesData.js";
 import Reviews from "../components/reviews.jsx"
+import UserContext from "../context/userContext.jsx";
+import {useGetUserFromSession} from "../hooks/useGetUserFromSession.js";
 
 export async function loader (props) {
     const movie = await getMovieDetails(props.params.id)
@@ -39,6 +41,8 @@ function checkIfMovieInList (movie, dbData) {
 
 export default function DetailsPage () {
     const movie = useLoaderData()
+    const {user, setUser} = useContext(UserContext)
+    useGetUserFromSession(setUser)
 
     return (
         <Container sx={{width: "100%", mt:"10%",}} >

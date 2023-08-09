@@ -6,9 +6,9 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore.js";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import ReviewRating from "./reviewsRating.jsx";
+
 import AccordionDetails from "@mui/material/AccordionDetails";
-import parse from "html-react-parser";
+
 import * as React from "react";
 import {TextareaAutosize} from "@mui/material";
 
