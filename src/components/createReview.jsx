@@ -11,16 +11,18 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 
 import * as React from "react";
 import {TextareaAutosize} from "@mui/material";
+import {useDbUpdate} from "../hooks/useDbUpdate.js";
+import {useContext} from "react";
+import UserContext from "../context/userContext.jsx";
 
 
-
-
-export default function CreateReview(){
+export default function CreateReview(props){
+    const {user} = useContext(UserContext)
+    const saveReviewToDb = useDbUpdate()
     function handleSubmit (e) {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
-        console.log(data.get('review'))
-        console.log(data.get('rating'))
+        saveReviewToDb.mutate({table:'reviewsTable', data:{frist_name: user.first_name, user_id: user.user_id, item_id:props.movie.id, review:data.get('review'),rating:data.get('rating'), type:props.type}})
     }
     return(
         <Box component="form" onSubmit={handleSubmit}>

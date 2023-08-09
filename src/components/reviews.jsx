@@ -16,7 +16,7 @@ export default function Reviews (props) {
 
     return (
         <Box>
-            <CreateReview/>
+            <CreateReview movie={props.movie} type={'movie'}/>
             <DbReviews movie={props.movie} />
             <ApiReviews movie={props.movie} />
         </Box>
